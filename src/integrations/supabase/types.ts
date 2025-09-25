@@ -14,7 +14,227 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      branches: {
+        Row: {
+          branch_code: string
+          branch_name: string
+          created_at: string
+          degree_type: string
+          duration: number
+          id: string
+        }
+        Insert: {
+          branch_code: string
+          branch_name: string
+          created_at?: string
+          degree_type?: string
+          duration?: number
+          id?: string
+        }
+        Update: {
+          branch_code?: string
+          branch_name?: string
+          created_at?: string
+          degree_type?: string
+          duration?: number
+          id?: string
+        }
+        Relationships: []
+      }
+      college_branches: {
+        Row: {
+          branch_id: string
+          college_id: string
+          created_at: string
+          fees_per_year: number | null
+          id: string
+          intake_capacity: number | null
+        }
+        Insert: {
+          branch_id: string
+          college_id: string
+          created_at?: string
+          fees_per_year?: number | null
+          id?: string
+          intake_capacity?: number | null
+        }
+        Update: {
+          branch_id?: string
+          college_id?: string
+          created_at?: string
+          fees_per_year?: number | null
+          id?: string
+          intake_capacity?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "college_branches_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "college_branches_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      colleges: {
+        Row: {
+          autonomy_status: string | null
+          college_code: string
+          college_name: string
+          created_at: string
+          established_year: number | null
+          id: string
+          location: string
+          type: string | null
+          university_name: string | null
+          website_url: string | null
+        }
+        Insert: {
+          autonomy_status?: string | null
+          college_code: string
+          college_name: string
+          created_at?: string
+          established_year?: number | null
+          id?: string
+          location: string
+          type?: string | null
+          university_name?: string | null
+          website_url?: string | null
+        }
+        Update: {
+          autonomy_status?: string | null
+          college_code?: string
+          college_name?: string
+          created_at?: string
+          established_year?: number | null
+          id?: string
+          location?: string
+          type?: string | null
+          university_name?: string | null
+          website_url?: string | null
+        }
+        Relationships: []
+      }
+      cutoffs: {
+        Row: {
+          category: string
+          closing_percentile: number
+          college_branch_id: string
+          created_at: string
+          domicile: string
+          gender: string | null
+          id: string
+          opening_percentile: number
+          round_number: number
+          year: number
+        }
+        Insert: {
+          category: string
+          closing_percentile: number
+          college_branch_id: string
+          created_at?: string
+          domicile: string
+          gender?: string | null
+          id?: string
+          opening_percentile: number
+          round_number: number
+          year: number
+        }
+        Update: {
+          category?: string
+          closing_percentile?: number
+          college_branch_id?: string
+          created_at?: string
+          domicile?: string
+          gender?: string | null
+          id?: string
+          opening_percentile?: number
+          round_number?: number
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cutoffs_college_branch_id_fkey"
+            columns: ["college_branch_id"]
+            isOneToOne: false
+            referencedRelation: "college_branches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          category: string | null
+          created_at: string
+          domicile: string | null
+          email: string
+          full_name: string
+          id: string
+          percentile: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          domicile?: string | null
+          email: string
+          full_name: string
+          id?: string
+          percentile?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          domicile?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          percentile?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_predictions: {
+        Row: {
+          category: string
+          created_at: string
+          domicile: string
+          id: string
+          percentile: number
+          predicted_colleges: Json | null
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          domicile: string
+          id?: string
+          percentile: number
+          predicted_colleges?: Json | null
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          domicile?: string
+          id?: string
+          percentile?: number
+          predicted_colleges?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
