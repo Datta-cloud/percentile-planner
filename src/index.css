@@ -7,7 +7,7 @@ All colors MUST be HSL.
 */
 
 @layer base {
-  :root {
+  :root {sasz
     --background: 210 25% 98%;
     --foreground: 220 50% 15%;
 
