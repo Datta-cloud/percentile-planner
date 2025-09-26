@@ -2,108 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Improved design system for modern aesthetic UI */
 
 @layer base {
-  :root {sasz
+  :root {
+    /* Colors */
     --background: 210 25% 98%;
     --foreground: 220 50% 15%;
-
     --card: 0 0% 100%;
     --card-foreground: 220 50% 15%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 220 50% 15%;
 
     --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 210 25% 96%;
     --secondary-foreground: 220 50% 15%;
-
     --muted: 210 25% 96%;
     --muted-foreground: 220 15% 45%;
-
     --accent: 142 71% 45%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 75% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 25% 88%;
     --input: 210 25% 88%;
     --ring: 217 91% 60%;
-    
-    /* Education-themed gradients */
+
+    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(142 71% 45%));
     --gradient-secondary: linear-gradient(180deg, hsl(210 25% 98%), hsl(210 25% 96%));
     --gradient-accent: linear-gradient(135deg, hsl(142 71% 45%), hsl(160 71% 45%));
-    
-    /* Beautiful shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(217 91% 60% / 0.2);
-    --shadow-card: 0 4px 12px -2px hsl(220 50% 15% / 0.08);
-    
+
+    /* Shadows */
+    --shadow-elegant: 0 12px 24px -4px hsl(217 91% 60% / 0.15);
+    --shadow-card: 0 6px 20px -4px hsl(220 50% 15% / 0.1);
+
     /* Smooth transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --radius: 0.5rem;
+    /* Border radius */
+    --radius: 0.75rem;
 
+    /* Sidebar */
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
+    --sidebar-foreground: 240 5% 26%;
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* Dark mode improvements */
   .dark {
     --background: 220 50% 8%;
     --foreground: 210 25% 95%;
-
     --card: 220 50% 10%;
     --card-foreground: 210 25% 95%;
-
-    --popover: 220 50% 10%;
-    --popover-foreground: 210 25% 95%;
-
     --primary: 217 91% 65%;
     --primary-foreground: 220 50% 8%;
-
     --secondary: 220 30% 15%;
     --secondary-foreground: 210 25% 95%;
-
     --muted: 220 30% 15%;
     --muted-foreground: 220 15% 65%;
-
     --accent: 142 71% 50%;
     --accent-foreground: 220 50% 8%;
-
     --destructive: 0 75% 65%;
     --destructive-foreground: 220 50% 8%;
-
     --border: 220 30% 18%;
     --input: 220 30% 18%;
     --ring: 217 91% 65%;
-    
-    /* Dark mode gradients */
+
     --gradient-primary: linear-gradient(135deg, hsl(217 91% 65%), hsl(142 71% 50%));
     --gradient-secondary: linear-gradient(180deg, hsl(220 50% 8%), hsl(220 50% 10%));
     --gradient-accent: linear-gradient(135deg, hsl(142 71% 50%), hsl(160 71% 50%));
-    
-    /* Dark mode shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(217 91% 65% / 0.3);
-    --shadow-card: 0 4px 12px -2px hsl(220 50% 5% / 0.4);
+
+    --shadow-elegant: 0 12px 24px -4px hsl(217 91% 65% / 0.2);
+    --shadow-card: 0 6px 20px -4px hsl(220 50% 5% / 0.3);
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -116,11 +94,36 @@ All colors MUST be HSL.
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  /* Global styles */
+  *, *::before, *::after {
+    @apply border-border transition-[var(--transition-smooth)] outline-none;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+  }
+
+  a {
+    @apply text-primary hover:text-accent transition-colors;
+  }
+
+  button {
+    @apply rounded-[var(--radius)] px-4 py-2 font-medium cursor-pointer shadow-card hover:shadow-elegant transition-[var(--transition-smooth)];
+  }
+
+  input, textarea, select {
+    @apply rounded-[var(--radius)] border border-input bg-card text-foreground px-3 py-2 placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:ring-offset-1 transition-[var(--transition-smooth)];
+  }
+
+  /* Card */
+  .card {
+    @apply bg-card text-card-foreground rounded-[var(--radius)] shadow-card p-6 transition-[var(--transition-smooth)];
+  }
+
+  /* Popover */
+  .popover {
+    @apply bg-popover text-popover-foreground rounded-[var(--radius)] shadow-elegant p-4 transition-[var(--transition-smooth)];
   }
 }
